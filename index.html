@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法國景點收藏展示館</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Noto+Sans+TC&family=Noto+Serif+TC&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #FBF9F6;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            color: #3C3A36;
+        }
+
+        #app {
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+    
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+                     gap: 25px;
+            margin-bottom: 50px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+   
+        .big-box {
+            flex: 1 1 100%;
+            width: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            min-height: auto;
+            height: auto;
+            background-color: #FFFFFF;
+            border: 1px solid #E3DCD5;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(44, 78, 114, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', 'Noto Serif TC', serif;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+            color: #2C4E72;
+        }
+
+        .box {
+            flex: 1;
+            background-color: #2C4E72;
+            padding: 20px 30px 30px 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #F6F1EB;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            color: #F6F1EB;
+            margin-top: 15px;
+        }
+
+        .titleOfCollect {
+            font-size: 15px;
+            color: #E2D7CD;
+            flex-shrink: 0;
+            width: 90px;
+            letter-spacing: 1px;
+            margin: 15px;
+
+        }
+
+        input[type="text"],
+        select {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #FFFFFF;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #E2D7CD;
+            box-shadow: 0 0 8px rgba(226, 215, 205, 0.3);
+        }
+
+        select option {
+            background-color: #2C4E72;
+            color: white;
+        }
+
+        .rating-box {
+            display: flex;
+            align-items: center;
+            margin-top: 18px;
+        }
+
+        .stars-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-left: 0;
+        }
+
+        .star-item {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .star-item:hover {
+            transform: scale(1.2);
+        }
+
+        .star-item.is-active {
+            color: #E8C170;
+            text-shadow: 0 0 8px rgba(232, 193, 112, 0.4);
+        }
+
+        .btn-container {
+            margin-top: 25px;
+            text-align: right;
+        }
+
+        button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 30px;
+            background-color: #E2D7CD;
+            color: #2C4E72;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #F6F1EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(226, 215, 205, 0.4);
+        }
+
+        .stats-box {
+            flex: 1 1 100%;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            background-color: #FFFFFF;
+            border: 1px solid #E3DCD5;
+            border-radius: 24px;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(44, 78, 114, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stats-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2C4E72;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #F0EAE3;
+            padding-bottom: 15px;
+        }
+
+        .stats-box p {
+            font-size: 16px;
+            color: #7A756E;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .stats-box strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-style: italic;
+            color: #2C4E72;
+            margin: 0 8px;
+            font-weight: 500;
+        }
+
+        .list-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 22px;
+            color: #2C4E72;
+            margin: 50px 0 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .list-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #E3DCD5;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .collection-card {
+            background-color: #FFFFFF;
+            border: 1px solid #EBE6E0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(44, 78, 114, 0.08);
+            border-color: #D3C9BE;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #F5F1EC;
+            transition: transform 0.5s ease;
+        }
+
+        .collection-card:hover .card-img {
+            transform: scale(1.03);
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            background-color: #F4F1EC;
+            color: #7A756E;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-name {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #3C3A36;
+            margin: 0 0 10px 0;
+        }
+
+        .card-intro {
+            font-size: 13px;
+            color: #8C867E;
+            margin: 0 0 20px 0;
+            line-height: 1.6;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-stars {
+            font-size: 16px;
+            color: #E8C170;
+            margin-top: auto;
+            letter-spacing: 2px;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .filter-bar button {
+            background-color: #F4F1EC;
+            color: #7A756E;
+            border: 1px solid #E3DCD5;
+            border-radius: 20px;
+            padding: 8px 18px;
+            font-size: 13px;
+        }
+
+        .filter-bar button.active {
+            background-color: #2C4E72;
+            color: #FFFFFF;
+            border-color: #2C4E72;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .main-layout {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .big-box {
+                flex: 1 1 100%;
+                max-width: 100%;
+                min-width: 100%;
+                min-height: auto;
+            }
+
+            .stats-box {
+                flex: 1 1 100%;
+                max-width: 100%;
+                height: auto;
+            }
+
+            .stats-box {
+                padding: 30px;
+            }
+
+            .stats-box strong {
+                font-size: 36px;
+            }
+        }
+
+        @media (min-width: 901px) {
+            .main-layout {
+                flex-direction: row;
+                align-items: stretch;
+                gap: 40px;
+            }
+
+            .big-box {
+                flex: 1 1 50%;
+                max-width: 100%;
+                min-width: 450px;
+                min-height: 480px;
+            }
+
+            .stats-box {
+                flex: 1 1 50%;
+                max-width: 100%;
+                height: auto;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-layout">
+            <div class="big-box">
+                <h1>法國景點收藏展示館</h1>
+                <div class="box">
+                    <h2>新增收藏</h2>
+
+                    <div class="form-row">
+                        <label for="name">
+                            <span class="titleOfCollect">名稱</span></label>
+
+                        <input id="name" type="text" placeholder="例如：羅浮宮" v-model="newPlace.name" alt="louvre">
+
+                    </div>
+                    <div class="form-row">
+                        <label for="sort">
+                            <span class="titleOfCollect">分類</span></label>
+                        <select name="sort" id="sort" v-model="newPlace.sort">
+                            </label>
+                            <option value="" hidden selected>請選擇</option>
+                            <option value="museum">博物館與美術館</option>
+                            <option value="church">宮廷與教堂</option>
+                            <option value="spot">經典地標</option>
+                            <option value="natural">自然風光</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="pic">
+                            <span class="titleOfCollect">圖片網址</span></label>
+                        <input id="pic" type="text" placeholder="請輸入網址" v-model="newPlace.pic">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="intro">
+                            <span class="titleOfCollect">簡短介紹</span></label>
+                        <input id="intro" type="text" placeholder="請輸入簡短介紹" v-model="newPlace.intro">
+                    </div>
+
+                    <div class="rating-box">
+                        <label for="intro">
+                            <span class="titleOfCollect">推薦程度</span></label>
+                        <div class="stars-wrapper">
+                            <span v-for="n in 5" :key="n" class="star-item"
+                                :class="{ 'is-active': n <= (hoverRating || newPlace.rating) }"
+                                @mouseover="hoverRating = n" @mouseleave="hoverRating = 0" @click="newPlace.rating= n">
+                                ★
+                            </span>
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <button type="button" @click="addCollection">新增收藏</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="stats-box">
+                <h2 class="stats-title">統計資訊</h2>
+                <p>目前收藏數：<strong>{{collections.length}}</strong> 個景點</p>
+                <p>平均推薦：<strong>{{avgRating}}</strong> / 5 ★</p>
+            </div>
+        </div>
+        <h2 class="list-title">收藏列表</h2>
+        <div class="filter-bar">
+            <button @click="activeFilter = ''" :class="{ active: activeFilter === '' }">全部</button>
+            <button @click="activeFilter = 'museum'" :class="{ active: activeFilter === 'museum' }">博物館與美術館</button>
+            <button @click="activeFilter = 'church'" :class="{ active: activeFilter === 'church' }">宮廷與教堂</button>
+            <button @click="activeFilter = 'spot'" :class="{ active: activeFilter === 'spot' }">經典地標</button>
+            <button @click="activeFilter = 'natural'" :class="{ active: activeFilter === 'natural' }">自然風光</button>
+        </div>
+        <div class="cards-grid">
+            <div class="collection-card" v-for="(item, index) in filteredCollections" :key="index">
+                <img :src="item.pic || 'https://placehold.co/600x400'" class="card-img" :alt="it">
+                <div class="card-content">
+                    <span class="card-tag">{{ item.sort || '未分類' }}</span>
+                    <h3 class="card-name">{{ item.name }}</h3>
+                    <p class="card-intro">{{ item.intro || '暫無介紹。' }}</p>
+                    <div class="card-stars">
+                        <span v-for="s in item.rating">★</span>
+                    </div>
+                </div>
+            </div>
+            <p v-if="filteredCollections.length === 0" style="color: #999;">目前尚無收藏，請從上方表單新增！</p>
+        </div>
+    </div>
+
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref, reactive, computed } = Vue;
+        const app = createApp({
+            setup() {
+
+                const hoverRating = ref(0);
+
+
+                const newPlace = reactive({
+                    name: '',
+                    sort: '',
+                    pic: '',
+                    intro: '',
+                    rating: 1
+                });
+                const sortLabels = {
+                    museum: '博物館與美術館',
+                    church: '宮廷與教堂',
+                    spot: '經典地標',
+                    natural: '自然風光'
+                };
+                const collections = ref([
+                    {
+                        name: '羅浮宮',
+                        sort: '博物館與美術館',
+                        pic: './img/louvre.jpg',
+                        intro: '世界最大的藝術博物館。',
+                        rating: 5
+                    },
+                    {
+                        name: '艾菲爾鐵塔',
+                        sort: '經典地標',
+                        pic: './img/Eiffel.jpg',
+                        intro: '巴黎最著名的地標。',
+                        rating: 5
+                    },
+
+                ]);
+                const addCollection = () => {
+                    if (!newPlace.name.trim()) {
+                        alert('請輸入景點名稱！');
+                        return;
+                    }
+
+                    collections.value.unshift({
+                        name: newPlace.name,
+                        sort: sortLabels[newPlace.sort] || newPlace.sort,
+                        pic: newPlace.pic,
+                        intro: newPlace.intro,
+                        rating: newPlace.rating
+
+                    })
+                    newPlace.name = '';
+                    newPlace.sort = '';
+                    newPlace.pic = '';
+                    newPlace.intro = '';
+                    newPlace.rating = 1;
+                };
+                const avgRating = computed(() => {
+                    if (collections.value.length === 0) 
+                    return '–';
+                    const total = collections.value.reduce((sum, item) => sum + item.rating, 0);
+                    return (total / collections.value.length).toFixed(1);
+                });
+                const activeFilter = ref('');
+
+                const filteredCollections = computed(() => {
+                    if (activeFilter.value === '') return collections.value;
+                    return collections.value.filter(item => item.sort === sortLabels[activeFilter.value]);
+                });
+                return {
+                    hoverRating,
+                    newPlace,
+                    collections,
+                    addCollection,
+                    avgRating,
+                    sortLabels,
+                    activeFilter,
+                    filteredCollections
+                };
+            },
+        });
+        app.mount('#app');
+    </script>
+
+</body>
+
+</html>
